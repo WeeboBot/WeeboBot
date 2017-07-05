@@ -259,7 +259,7 @@ public class TwitchUtilities {
 				logger.log(Level.SEVERE, String.format("There was an issue checking is %s is subscribed to %s", sender, channelNoHash), e);
 				WLogger.logError(e);
 			}
-			if (obj.get("error") != null) { // ie it finds it
+			if (obj.get("error") != null) { // The API
 				return false;
 			} else { // it does not find it
 				int count = subscriberCount(channelNoHash, userOAuth);
@@ -325,8 +325,8 @@ public class TwitchUtilities {
 			con.setRequestMethod("POST");
 		} catch (IOException e) {
 			logger.log(Level.SEVERE,
-					"An error occurred trying to start a commercial for "
-							+ channelNoHash, e);
+					String.format("An error occurred trying to start a %d second commercial for %s",
+							length, channelNoHash), e);
 			WLogger.logError(e);
 		}
 		con.setRequestProperty("User-agent", USER_AGENT);
@@ -430,6 +430,7 @@ public class TwitchUtilities {
                 Database.addEmote(emote);
             }
         }
+        logger.info("Succesfully updated emote database!");
 	}
 
     private static ArrayList<String> getGlobalEmotes() {
@@ -464,10 +465,6 @@ public class TwitchUtilities {
             stream1 = new URL(EMOTE_URL + "subscriber.json").openStream();
             JsonElement baseElement = new JsonParser().parse(new JsonReader(
                     new InputStreamReader(stream1)));
-            System.out.println(baseElement.isJsonNull());
-            System.out.println(baseElement.isJsonArray());
-            System.out.println(baseElement.isJsonObject());
-            System.out.println(baseElement.isJsonPrimitive());
             JsonObject subEmotesObject = baseElement.getAsJsonObject().getAsJsonObject("channels");
             channels.stream().filter(entry -> !entry.getValue().toString().replaceAll("\"", "").startsWith("--")).forEach(entry -> {
                 JsonElement channel = subEmotesObject.getAsJsonObject(entry.getValue().toString().replaceAll("\"", ""));
