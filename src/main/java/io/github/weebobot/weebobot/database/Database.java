@@ -517,7 +517,7 @@ public class Database {
         output.append(" points holder(s) are: ");
 		ResultSet rs=executeQuery(String.format("SELECT * FROM %s.%sUsers WHERE visibility = true ORDER BY points DESC", DATABASE, channelNoHash));
 		try {
-			while(rs.next()&&amount>1){
+			while(amount > 1 && rs.next()){
 				if(rs.getBoolean(3)) {
 					output.append(rs.getString(1));
                     output.append(": ");
@@ -526,9 +526,11 @@ public class Database {
 					amount--;
 				}
 			}
-			output.append(rs.getString(1));
-            output.append(": ");
-            output.append(rs.getInt(3));
+			if(rs.next()) {
+				output.append(rs.getString(1));
+				output.append(": ");
+				output.append(rs.getInt(3));
+			}
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, "Error occurred creating Top list!", e);
 			WLogger.logError(e);
@@ -730,14 +732,14 @@ public class Database {
 			if (tables.next()){
 				queue=true;
 			}else{
-				executeUpdate(String.format("CREATE TABLE %s.%sSongQueue (queueID INTEGER AUTO_INCREMENT, songURL varchar(255), songTitle varchar(255), songID INTEGER, requester varchar(25), PRIMARY KEY(queueID))", DATABASE, user));
+				queue = executeUpdate(String.format("CREATE TABLE %s.%sSongQueue (queueID INTEGER AUTO_INCREMENT, songURL varchar(255), songTitle varchar(255), songID INTEGER, requester varchar(25), PRIMARY KEY(queueID))", DATABASE, user));
 				System.out.println(String.format("Created song queue table for %s", user));
 			}
 			tables = dbm.getTables(null, null, String.format("%sSongList", user), null);
 			if (tables.next()){
 				list=true;
 			}else{
-				executeUpdate(String.format("CREATE TABLE %s.%sSongList (listID INTEGER AUTO_INCREMENT, songURL varchar(255), songTitle varchar(255), songID INTEGER, PRIMARY KEY(listID))", DATABASE, user));
+				list = executeUpdate(String.format("CREATE TABLE %s.%sSongList (listID INTEGER AUTO_INCREMENT, songURL varchar(255), songTitle varchar(255), songID INTEGER, PRIMARY KEY(listID))", DATABASE, user));
 				System.out.println(String.format("Created song list table for %s", user));
 			}
 		} catch (SQLException e) {

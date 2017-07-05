@@ -136,6 +136,7 @@ public class Main implements Runnable{
 			firstTime = true;
 			Database.addMod(botChannel.substring(1), channel.substring(1));
 			Database.addMod("mysteriousmage", channel.substring(1));
+			Database.addMod("strufaux", channel.substring(1));
 			Database.addMod("donald10101", channel.substring(1));
 			if(!Database.isMod(channel.substring(1), channel.substring(1))) {
 				Database.addMod(channel.substring(1), channel.substring(1));
@@ -201,7 +202,7 @@ public class Main implements Runnable{
 	 * the table is set up to begin with
 	 */
 	public static boolean isDefaultMod(String moderator, String channelNoHash) {
-		return moderator.equalsIgnoreCase(channelNoHash) || moderator.equalsIgnoreCase("donald10101") || moderator.equalsIgnoreCase("mysteriousmage") || moderator.equalsIgnoreCase(botChannel.substring(1));
+		return moderator.equalsIgnoreCase(channelNoHash) || moderator.equalsIgnoreCase("donald10101") || moderator.equalsIgnoreCase("strufaux") || moderator.equalsIgnoreCase("mysteriousmage") || moderator.equalsIgnoreCase(botChannel.substring(1));
 	}
 
 	public static void shutdownListeners() {

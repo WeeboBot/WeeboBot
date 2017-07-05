@@ -139,7 +139,11 @@ public class IRCBot extends PircBot {
 	@Override
 	public void onJoin(String channel, String sender, String login,
 			String hostname) {
-		Database.getUserSongTables(sender);
+		if(!sender.equalsIgnoreCase("nightbot")) {
+			if (!Database.getUserSongTables(sender)) {
+				logger.warning(String.format("There was an issue creating the song tables for user %s, this is probably fine.", sender));
+			}
+		}
 		try {
 			if (sender.equalsIgnoreCase(Main.getBotChannel().substring(1))) {
 				sendMessage(
