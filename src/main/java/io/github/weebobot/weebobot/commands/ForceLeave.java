@@ -34,16 +34,15 @@ public class ForceLeave extends Command {
 
 	@Override
 	public String execute(String channel, String sender, String... parameters) {
+		if(!parameters[0].startsWith("#")) {
+			parameters[0] = "#" + parameters[0];
+		}
 		if(channel.equalsIgnoreCase(Main.getBotChannel())) {
-			if(parameters[0].startsWith("#")) {
+			if(Main.getBot().isWatchingChannel(parameters[0])) {
 				Main.getBot().sendMessage(parameters[0], "I am leaving the channel!");
 				Main.partChannel(parameters[0]);
-			} else {
-
-				Main.getBot().sendMessage("#"+parameters[0], "I am leaving the channel!");
-				Main.partChannel("#"+parameters[0]);
+				return "Forcefully leaving %channel%".replace("%channel%", parameters[0]);
 			}
-			return "Forcefully leaving %channel%".replace("%channel%", parameters[0]);
 		}
 		return "You can only preform this command from the main bot channel!";
 	}

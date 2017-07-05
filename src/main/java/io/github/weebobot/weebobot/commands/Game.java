@@ -17,6 +17,7 @@
 
 package io.github.weebobot.weebobot.commands;
 
+import io.github.weebobot.weebobot.Main;
 import io.github.weebobot.weebobot.database.Database;
 import io.github.weebobot.weebobot.external.TwitchUtilities;
 import io.github.weebobot.weebobot.util.CLevel;
@@ -46,7 +47,7 @@ public class Game extends Command {
                 return "Successfully changed the stream game to \""
                         + sb.toString() + "\"!";
             } else {
-                return "I am not authorized to do that, visit http://weebobot.com/login to allow me to do this and so much more!";
+                return String.format("I am not authorized to do that, visit %s to allow me to do this and so much more!", Main.getWebsite());
             }
         }
         return TwitchUtilities.getGame(channel.substring(1));

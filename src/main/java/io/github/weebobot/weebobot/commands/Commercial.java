@@ -17,6 +17,7 @@
 
 package io.github.weebobot.weebobot.commands;
 
+import io.github.weebobot.weebobot.Main;
 import io.github.weebobot.weebobot.external.TwitchUtilities;
 import io.github.weebobot.weebobot.util.CLevel;
 
@@ -47,20 +48,20 @@ public class Commercial extends Command {
             if(TwitchUtilities.runCommercial(channel.substring(1))) {
                 return String.format("%s is not a valid time. Running a default length commercial on %s!", length, channel);
             } else {
-                return "I am not authorized to do that, visit http://weebobot.com/login to allow me to do this and so much more!";
+                return String.format("I am not authorized to do that, visit %s to allow me to do this and so much more!", Main.getWebsite());
             }
 		}
 		if (time <= 180 && time % 30 == 0) {
             if(TwitchUtilities.runCommercial(channel.substring(1), time)) {
                 return String.format("Running a %s for %length% seconds on %s", length, channel);
             } else {
-                return "I am not authorized to do that, visit http://weebobot.com/login to allow me to do this and so much more!";
+                return String.format("I am not authorized to do that, visit %s to allow me to do this and so much more!", Main.getWebsite());
             }
 		} else {
             if(TwitchUtilities.runCommercial(channel.substring(1))) {
                 return String.format("%s is not a valid time. Running a default length commercial on %s!", length, channel);
             } else {
-                return "I am not authorized to do that, visit http://weebobot.com/login to allow me to do this and so much more!";
+                return String.format("I am not authorized to do that, visit %s to allow me to do this and so much more!", Main.getWebsite());
             }
 		}
 	}

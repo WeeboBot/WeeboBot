@@ -58,7 +58,7 @@ public class Setup extends Command {
 				"If you would like to disable this feature again type \"!changeWelcome none\" without the quotes! To temporarily disable it type !disableWelcome and to enable it type !enableWelcome (This only works if the message is something other than \"none\")!");
 			Main.getBot().sendMessage(
 				channel,
-				"Also, if you would like to use subscriber raffles or change the stream title and game, please go to http://weebobot.com/login to authorize the bot!");
+				String.format("Also, if you would like to use subscriber raffles or change the stream title and game, please go to %s to authorize the bot!", Main.getWebsite()));
 			Main.getBot().sendMessage(channel, "Congrats, you're all done! Go take a nap ResidentSleeper");
 		}
 		return null;

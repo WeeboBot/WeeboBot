@@ -61,8 +61,8 @@ public class Main implements Runnable{
 	public static void main(String[] args) {
 		listeners = new ArrayList<>();
 		Main.args=args;
-		listeners.add(new Backend(6668));
-		listeners.add(new Backend(6669));
+		listeners.add(new Backend(Backend.pingPort));
+		listeners.add(new Backend(Backend.commandPort));
 		new Thread(listeners.get(0)).start();
 		new Thread(listeners.get(1)).start();
 		new Main();
@@ -86,6 +86,10 @@ public class Main implements Runnable{
 				CommandParser.parse(command, getBotChannel().substring(1), getBotChannel(), params);
 			}
 		}
+	}
+
+	public static String getWebsite() {
+		return "https://weebo.jameswolff.me";
 	}
 
 	/** 

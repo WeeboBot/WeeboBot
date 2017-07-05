@@ -17,6 +17,7 @@
 
 package io.github.weebobot.weebobot.commands;
 
+import io.github.weebobot.weebobot.Main;
 import io.github.weebobot.weebobot.database.Database;
 import io.github.weebobot.weebobot.external.TwitchUtilities;
 import io.github.weebobot.weebobot.util.CLevel;
@@ -43,7 +44,7 @@ public class Title extends Command {
                     sb.toString())) {
                 return "Successfully changed the stream title to \"%title%\"!".replace("%title%", sb.toString());
             } else {
-                return "I am not authorized to do that, visit http://weebobot.com/login to allow me to do this and so much more!";
+                return String.format("I am not authorized to do that, visit %s to allow me to do this and so much more!", Main.getWebsite());
             }
         }
         return TwitchUtilities.getTitle(channel.substring(1));
